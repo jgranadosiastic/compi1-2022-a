@@ -10,4 +10,13 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/de.jflex/cup_runtime -->
+        <dependency>
+            <groupId>de.jflex</groupId>
+            <artifactId>cup_runtime</artifactId>
+            <version>11b-20160615</version>
+        </dependency>
+
+    </dependencies>
 </project>

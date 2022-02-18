@@ -1,0 +1,72 @@
+// seccion codigo
+package com.jgranados.jflex_cup.sumas.parser;
+
+import java_cup.runtime.*;
+import com.jgranados.jflex_cup.sumas.lexer.SumasLexer;
+
+parser code {:
+        
+    public SumasParser(SumasLexer lexer) {
+        super(lexer);
+    }
+
+    private int count = 0;
+
+    private void increaseCount() {
+        count++;
+    }
+    
+    public int getCount() {
+        return count;
+    }
+
+
+    public void report_error(String message, Object info) {
+        System.out.println("public void report_error");
+    }
+    
+    public void report_fatal_error(String message, Object info) {
+        System.out.println("public void report_fatal_error");
+    }
+
+    public void syntax_error(Symbol cur_token) {
+        System.out.println("El error es el simbolo: " + sym.terminalNames[cur_token.sym]);
+        System.out.println(String.format("En la posicion: %d, %d", cur_token.left, cur_token.right));
+    }
+
+    public void unrecovered_syntax_error(Symbol cur_token) {
+        if (cur_token.sym == sym.EOF) {
+            System.out.println("public void unrecoveredsyntax_error");
+        }
+    }
+:}
+
+
+
+
+// seccion de terminales
+
+/**
+ * IMPORTANTE: FALLABA POR LO SIGUIENTE:
+ * CADA VEZ QUE SE TRADUCE EL ARCHIVO CUP, TAMBIEN HAY QUE ACTUALIZAR EL ARCHIVO sym.java
+ * Y A MI SE ME OLVIDÓ ESE PASO.
+ * F por el inge XD
+ */
+
+terminal MAS, COMA;
+terminal Integer ENTERO;
+
+// seccion de no termimales
+non terminal    s;
+
+
+// gramatica tipo 2
+// S -> entero mas entero
+// S -> entero mas entero coma S
+// 33+33,35+88
+
+s   ::= ENTERO:entero1 MAS ENTERO:entero2                   {: increaseCount(); System.out.println(String.format("La suma es: %d", entero1 + entero2)); :}
+    |   ENTERO:entero1 MAS ENTERO:entero2 COMA s            {: increaseCount(); System.out.println(String.format("La suma es: %d", entero1 + entero2)); :}
+    |   error  s                            {: System.out.println("accion desde gramatica"); :}
+    ;
+    
