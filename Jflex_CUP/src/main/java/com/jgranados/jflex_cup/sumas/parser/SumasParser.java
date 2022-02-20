@@ -32,8 +32,8 @@ public class SumasParser extends java_cup.runtime.lr_parser {
   /** Production table. */
   protected static final short _production_table[][] = 
     unpackFromStrings(new String[] {
-    "\000\004\000\002\002\005\000\002\002\004\000\002\002" +
-    "\007\000\002\002\004" });
+    "\000\005\000\002\003\003\000\002\002\004\000\002\002" +
+    "\005\000\002\002\007\000\002\002\004" });
 
   /** Access to production table. */
   public short[][] production_table() {return _production_table;}
@@ -41,12 +41,12 @@ public class SumasParser extends java_cup.runtime.lr_parser {
   /** Parse-action table. */
   protected static final short[][] _action_table = 
     unpackFromStrings(new String[] {
-    "\000\012\000\006\003\004\006\006\001\002\000\006\003" +
-    "\004\006\006\001\002\000\004\002\013\001\002\000\004" +
-    "\004\007\001\002\000\004\006\010\001\002\000\006\002" +
-    "\001\005\011\001\002\000\006\003\004\006\006\001\002" +
-    "\000\004\002\uffff\001\002\000\004\002\000\001\002\000" +
-    "\004\002\ufffe\001\002" });
+    "\000\013\000\006\003\005\006\007\001\002\000\004\002" +
+    "\015\001\002\000\006\003\005\006\007\001\002\000\004" +
+    "\002\001\001\002\000\004\004\010\001\002\000\004\006" +
+    "\011\001\002\000\006\002\uffff\005\012\001\002\000\006" +
+    "\003\005\006\007\001\002\000\004\002\ufffe\001\002\000" +
+    "\004\002\ufffd\001\002\000\004\002\000\001\002" });
 
   /** Access to parse-action table. */
   public short[][] action_table() {return _action_table;}
@@ -54,10 +54,11 @@ public class SumasParser extends java_cup.runtime.lr_parser {
   /** <code>reduce_goto</code> table. */
   protected static final short[][] _reduce_table = 
     unpackFromStrings(new String[] {
-    "\000\012\000\004\002\004\001\001\000\004\002\013\001" +
-    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\004\002\011\001\001\000\002\001" +
-    "\001\000\002\001\001\000\002\001\001" });
+    "\000\013\000\006\002\005\003\003\001\001\000\002\001" +
+    "\001\000\004\002\013\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001\000\004\002" +
+    "\012\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\001" });
 
   /** Access to <code>reduce_goto</code> table. */
   public short[][] reduce_table() {return _reduce_table;}
@@ -157,22 +158,19 @@ class CUP$SumasParser$actions {
       switch (CUP$SumasParser$act_num)
         {
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 0: // s ::= ENTERO MAS ENTERO 
+          case 0: // a ::= s 
             {
               Object RESULT =null;
-		int entero1left = ((java_cup.runtime.Symbol)CUP$SumasParser$stack.elementAt(CUP$SumasParser$top-2)).left;
-		int entero1right = ((java_cup.runtime.Symbol)CUP$SumasParser$stack.elementAt(CUP$SumasParser$top-2)).right;
-		Integer entero1 = (Integer)((java_cup.runtime.Symbol) CUP$SumasParser$stack.elementAt(CUP$SumasParser$top-2)).value;
-		int entero2left = ((java_cup.runtime.Symbol)CUP$SumasParser$stack.peek()).left;
-		int entero2right = ((java_cup.runtime.Symbol)CUP$SumasParser$stack.peek()).right;
-		Integer entero2 = (Integer)((java_cup.runtime.Symbol) CUP$SumasParser$stack.peek()).value;
-		 increaseCount(); System.out.println(String.format("La suma es: %d", entero1 + entero2)); 
-              CUP$SumasParser$result = parser.getSymbolFactory().newSymbol("s",0, ((java_cup.runtime.Symbol)CUP$SumasParser$stack.elementAt(CUP$SumasParser$top-2)), ((java_cup.runtime.Symbol)CUP$SumasParser$stack.peek()), RESULT);
+		int sumasleft = ((java_cup.runtime.Symbol)CUP$SumasParser$stack.peek()).left;
+		int sumasright = ((java_cup.runtime.Symbol)CUP$SumasParser$stack.peek()).right;
+		String sumas = (String)((java_cup.runtime.Symbol) CUP$SumasParser$stack.peek()).value;
+		 System.out.println(sumas);  
+              CUP$SumasParser$result = parser.getSymbolFactory().newSymbol("a",1, ((java_cup.runtime.Symbol)CUP$SumasParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$SumasParser$stack.peek()), RESULT);
             }
           return CUP$SumasParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 1: // $START ::= s EOF 
+          case 1: // $START ::= a EOF 
             {
               Object RESULT =null;
 		int start_valleft = ((java_cup.runtime.Symbol)CUP$SumasParser$stack.elementAt(CUP$SumasParser$top-1)).left;
@@ -186,24 +184,49 @@ class CUP$SumasParser$actions {
           return CUP$SumasParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 2: // s ::= ENTERO MAS ENTERO COMA s 
+          case 2: // s ::= ENTERO MAS ENTERO 
             {
-              Object RESULT =null;
+              String RESULT =null;
+		int entero1left = ((java_cup.runtime.Symbol)CUP$SumasParser$stack.elementAt(CUP$SumasParser$top-2)).left;
+		int entero1right = ((java_cup.runtime.Symbol)CUP$SumasParser$stack.elementAt(CUP$SumasParser$top-2)).right;
+		Integer entero1 = (Integer)((java_cup.runtime.Symbol) CUP$SumasParser$stack.elementAt(CUP$SumasParser$top-2)).value;
+		int entero2left = ((java_cup.runtime.Symbol)CUP$SumasParser$stack.peek()).left;
+		int entero2right = ((java_cup.runtime.Symbol)CUP$SumasParser$stack.peek()).right;
+		Integer entero2 = (Integer)((java_cup.runtime.Symbol) CUP$SumasParser$stack.peek()).value;
+		 increaseCount(); RESULT = String.format("La suma es: %d", entero1 + entero2); /*System.out.println(String.format("La suma es: %d", entero1 + entero2));*/ 
+              CUP$SumasParser$result = parser.getSymbolFactory().newSymbol("s",0, ((java_cup.runtime.Symbol)CUP$SumasParser$stack.elementAt(CUP$SumasParser$top-2)), ((java_cup.runtime.Symbol)CUP$SumasParser$stack.peek()), RESULT);
+            }
+          return CUP$SumasParser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 3: // s ::= ENTERO MAS ENTERO COMA s 
+            {
+              String RESULT =null;
 		int entero1left = ((java_cup.runtime.Symbol)CUP$SumasParser$stack.elementAt(CUP$SumasParser$top-4)).left;
 		int entero1right = ((java_cup.runtime.Symbol)CUP$SumasParser$stack.elementAt(CUP$SumasParser$top-4)).right;
 		Integer entero1 = (Integer)((java_cup.runtime.Symbol) CUP$SumasParser$stack.elementAt(CUP$SumasParser$top-4)).value;
 		int entero2left = ((java_cup.runtime.Symbol)CUP$SumasParser$stack.elementAt(CUP$SumasParser$top-2)).left;
 		int entero2right = ((java_cup.runtime.Symbol)CUP$SumasParser$stack.elementAt(CUP$SumasParser$top-2)).right;
 		Integer entero2 = (Integer)((java_cup.runtime.Symbol) CUP$SumasParser$stack.elementAt(CUP$SumasParser$top-2)).value;
-		 increaseCount(); System.out.println(String.format("La suma es: %d", entero1 + entero2)); 
+		int sumaPrevleft = ((java_cup.runtime.Symbol)CUP$SumasParser$stack.peek()).left;
+		int sumaPrevright = ((java_cup.runtime.Symbol)CUP$SumasParser$stack.peek()).right;
+		String sumaPrev = (String)((java_cup.runtime.Symbol) CUP$SumasParser$stack.peek()).value;
+		 
+                                                                increaseCount();
+                                                                String suma = String.format("La suma es: %d", entero1 + entero2);
+                                                                String sumas = suma + "\n" + sumaPrev;
+                                                                
+                                                                RESULT = sumas;
+                                                                /*System.out.println(String.format("La suma es: %d", entero1 + entero2));*/
+                                                             
               CUP$SumasParser$result = parser.getSymbolFactory().newSymbol("s",0, ((java_cup.runtime.Symbol)CUP$SumasParser$stack.elementAt(CUP$SumasParser$top-4)), ((java_cup.runtime.Symbol)CUP$SumasParser$stack.peek()), RESULT);
             }
           return CUP$SumasParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 3: // s ::= error s 
+          case 4: // s ::= error s 
             {
-              Object RESULT =null;
+              String RESULT =null;
 		 System.out.println("accion desde gramatica"); 
               CUP$SumasParser$result = parser.getSymbolFactory().newSymbol("s",0, ((java_cup.runtime.Symbol)CUP$SumasParser$stack.elementAt(CUP$SumasParser$top-1)), ((java_cup.runtime.Symbol)CUP$SumasParser$stack.peek()), RESULT);
             }

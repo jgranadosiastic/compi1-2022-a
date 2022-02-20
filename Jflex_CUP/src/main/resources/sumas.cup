@@ -57,16 +57,27 @@ terminal MAS, COMA;
 terminal Integer ENTERO;
 
 // seccion de no termimales
-non terminal    s;
+non terminal  String  s;
+non terminal  a;
 
 
 // gramatica tipo 2
 // S -> entero mas entero
 // S -> entero mas entero coma S
-// 33+33,35+88
+// 33+33,35+88,65+,65+65
 
-s   ::= ENTERO:entero1 MAS ENTERO:entero2                   {: increaseCount(); System.out.println(String.format("La suma es: %d", entero1 + entero2)); :}
-    |   ENTERO:entero1 MAS ENTERO:entero2 COMA s            {: increaseCount(); System.out.println(String.format("La suma es: %d", entero1 + entero2)); :}
-    |   error  s                            {: System.out.println("accion desde gramatica"); :}
+a   ::= s:sumas                                             {: System.out.println(sumas);  :}
+    ;
+
+s   ::= ENTERO:entero1 MAS ENTERO:entero2                   {: increaseCount(); RESULT = String.format("La suma es: %d", entero1 + entero2); /*System.out.println(String.format("La suma es: %d", entero1 + entero2));*/ :}
+    |   ENTERO:entero1 MAS ENTERO:entero2 COMA s:sumaPrev   {: 
+                                                                increaseCount();
+                                                                String suma = String.format("La suma es: %d", entero1 + entero2);
+                                                                String sumas = suma + "\n" + sumaPrev;
+                                                                
+                                                                RESULT = sumas;
+                                                                /*System.out.println(String.format("La suma es: %d", entero1 + entero2));*/
+                                                             :}
+    |   error s                             {: System.out.println("accion desde gramatica"); :}
     ;
     
